@@ -1,0 +1,34 @@
+Zaliczenie:  (szymon.guzik@gdansk.merito.pl)
+- oddanie projektu
+- 1 nieobecność akceptowana
+- 100% obecności podnosi ocenę o ile to nie jest 2
+- musze otrzymać projekt od studentów
+- projekt umieszczamy na moodle w zakładce zaliczenie
+
+https://github.com/szguzik-wsb/nuxt3students
+
+git clone https://github.com/szguzik-wsb/nuxt3students.git
+
+style były z p. Madej
+
+cd nuxt3students
+npm install
+code .
+npm run <komenda z pliku package.json>
+np. npm run dev
+Wymagania:
+- postawienie czystego projektu w nuxt3
+- komponenty
+- scss
+- konfiguracja nuxta
+- :deep (zrobione)
+- eventy
+- v-if
+- v-show
+- bindowanie klasy
+- model pudełkowy (flexbox z css)
+- propsy
+Samodzielnie (do domu na drugie lab)
+- :deep
+- ts
+- git (https://www.youtube.com/watch?v=D6EI7EbEN4Q&list=PLjHmWifVUNMKIGHmaGPVqSD-L6i1Zw-MH)
