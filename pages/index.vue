@@ -1,4 +1,16 @@
 <script setup>
+	const searchQuery = ref("star");
+        const resultQuery = ref( null );
+
+	const searchData = async() => await useFetch('https://images-api.nasa.gov/search?q=' + searchQuery.value)
+	.then((res) => { 
+	    resultQuery.value = JSON.stringify(resultQuery.value);	   
+	});
+
+	//onBeforeMount( async ()=> {
+	    //searchData()
+	//});
+
 	const loadArticle = ref(false)
 	const showPredictionRef = ref(false)
 
@@ -22,6 +34,19 @@
 </script>
 
 <template>
+	<div>
+		<input type="text" v-model="searchQuery" />
+		<button class="button is-primary mt-4 mb-4" @click="searchData">Search</button>
+	</div>
+
+	<span v-if="loadArticle">
+		<div v-for="(item, index) in resultQuery.value" :key="index">
+			<h3>{{ item.data[0].title }}</h3>
+			<p>{{ item.data[0].description }}</p>
+			<img :src="item.links[0].href" alt="Lights">
+		</div>
+	</span>
+
     <button class="button is-primary mt-4 mb-4 ml-4" @click="showArticle">Display article</button>
     <br/>
     <span v-if="loadArticle">
