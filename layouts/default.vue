@@ -2,7 +2,7 @@
 
 </script>
 <template> 
-    <TopInfo :tel="'23658965'" :email="'konrad.chyrzynskii@gmail.com'"/>
+    <TopInfo :tel="'997 ten nr to kłopoty XD'" :email="'konrad.chyrzynskii@gmail.com'"/>
     <TopNav/>
         <slot />
     <Footer/>

@@ -1,15 +1,18 @@
 <script setup>
-	const searchQuery = ref("star");
-        const resultQuery = ref( null );
+        const articles = ref( null );
+	const baseURL = 'http://127.0.0.1:8000/media/';
 
-	const searchData = async() => await useFetch('https://images-api.nasa.gov/search?q=' + searchQuery.value)
+	const searchData = async() => await useFetch('http://127.0.0.1:8000/articles/')
 	.then((res) => { 
-	    resultQuery.value = JSON.stringify(resultQuery.value);	   
+	    articles.value = res.data.value; 
+	    console.log(articles.value);
+	    console.log(res.data.value[0].fields);
+	    console.log(res.data.value);
 	});
 
-	//onBeforeMount( async ()=> {
-	    //searchData()
-	//});
+	onBeforeMount( async ()=> {
+	    searchData()
+	});
 
 	const loadArticle = ref(false)
 	const showPredictionRef = ref(false)
@@ -19,8 +22,9 @@
 	    showPredictionRef.value = !showPredictionRef.value
 	}
 
-	const showArticle = () => {
+	const showArticle = async() => {
 	    alert("Click")
+	    await searchData()
 	    loadArticle.value = !loadArticle.value
 	}
 
@@ -34,30 +38,19 @@
 </script>
 
 <template>
-	<div>
-		<input type="text" v-model="searchQuery" />
-		<button class="button is-primary mt-4 mb-4" @click="searchData">Search</button>
-	</div>
-
+	<button class="button is-primary mt-4 mb-4 ml-4" @click="showArticle">Display articles</button>
+	<br/>
 	<span v-if="loadArticle">
-		<div v-for="(item, index) in resultQuery.value" :key="index">
-			<h3>{{ item.data[0].title }}</h3>
-			<p>{{ item.data[0].description }}</p>
-			<img :src="item.links[0].href" alt="Lights">
-		</div>
+		<section>
+			<div class="ai-response-container-display" v-for="(item, index) in articles" :key="index">
+				<span>This is the name of the file: {{ item.fields.title }}</span>
+				<img :src="baseURL + item.fields.photo" alt="Lights">
+				<button class="button is-primary mt-4 mb-4 " @click="showPrediction">Display prediction</button>
+				<span v-show="showPredictionRef">{{ item.fields.content }}</span>
+			</div>
+		</section>
 	</span>
-
-    <button class="button is-primary mt-4 mb-4 ml-4" @click="showArticle">Display article</button>
-    <br/>
-    <span v-if="loadArticle">
-	    <section class="ai-response-container-display">
-		    <span>This is the name of the file: {{ response.fileName }}</span>
-		    <img :src="response.image" alt="Lights">
-		    <button class="button is-primary mt-4 mb-4 " @click="showPrediction">Display prediction</button>
-		    <span v-show="showPredictionRef" >{{response.prediction}}: {{response.percentage}}</span>
-	    </section>
-    </span>
-    <br/>
+	<br/>
 </template>
 
 <style scoped lang="scss">
@@ -80,9 +73,9 @@ h3 {
     font-size: 20px;
 
     span {
-	margin: 0 10px 0 10px;
-        height: 100%; // Add this line
+	margin: 0 auto;
     }
+
     //Fit image to container;
     img {
 	    width: 400px;
