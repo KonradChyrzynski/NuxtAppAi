@@ -5,9 +5,6 @@
 	const searchData = async() => await useFetch('http://127.0.0.1:8000/articles/')
 	.then((res) => { 
 	    articles.value = res.data.value; 
-	    console.log(articles.value);
-	    console.log(res.data.value[0].fields);
-	    console.log(res.data.value);
 	});
 
 	onBeforeMount( async ()=> {
@@ -18,12 +15,12 @@
 	const showPredictionRef = ref(false)
 
 	const showPrediction = () => {
-	    alert("Click")
+	    alert("Załaduj predykcję...")
 	    showPredictionRef.value = !showPredictionRef.value
 	}
 
 	const showArticle = async() => {
-	    alert("Click")
+	    alert("Załaduj zdjęcia...")
 	    await searchData()
 	    loadArticle.value = !loadArticle.value
 	}
@@ -38,15 +35,24 @@
 </script>
 
 <template>
-	<button class="button is-primary mt-4 mb-4 ml-4" @click="showArticle">Display articles</button>
+	<div class="main-wrap-container"> 
+		<h1 class="title container">
+			Nie masz jeszcze strony internetowej? To nie problem! Stwórzmy ją razem i zautomatyzujmy Twoje zadania IT, abyś mógł skupić się na rozwijaniu biznesu.
+			Wchodź do cyfrowego świata z nami - szybko, prosto i efektywnie!
+		</h1>
+		<p> Przetestuj nasz model AI, który odgaduję co znajduję się na zdjęciu!</p>
+		<button class="button is-primary mt-4 mb-4 ml-4" @click="showArticle">
+			Wyświetl zdjęcia
+		</button>
+		<button v-if="loadArticle" class="button is-primary ml-4 mt-4 mb-4 " @click="showPrediction">Wyświetl predykcję</button>
+	</div>
 	<br/>
 	<span v-if="loadArticle">
 		<section>
 			<div class="ai-response-container-display" v-for="(item, index) in articles" :key="index">
-				<span>This is the name of the file: {{ item.fields.title }}</span>
+				<span>Co znajduję się na zdjęciu według naszego modelu AI: {{ item.fields.title }}</span>
 				<img :src="baseURL + item.fields.photo" alt="Lights">
-				<button class="button is-primary mt-4 mb-4 " @click="showPrediction">Display prediction</button>
-				<span v-show="showPredictionRef">{{ item.fields.content }}</span>
+				<span v-show="showPredictionRef">Prawdopodobieństwo trafionej predykcji: {{ item.fields.content }}</span>
 			</div>
 		</section>
 	</span>
@@ -54,6 +60,26 @@
 </template>
 
 <style scoped lang="scss">
+.main-wrap-container{
+	h1{
+		padding-left: 20px;
+		padding-right: 20px;
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 1200px;
+		margin-top: 70px;
+		margin-bottom: 70px;
+	}
+	p{
+		margin-left: 20px;
+		margin-right: 20px;
+		font-size: 20px;
+	}
+	button{
+		font-size: 20px;
+	}
+}
+
 h3 {
     span {
 	color: red
@@ -62,12 +88,12 @@ h3 {
 }
 
 .ai-response-container-display {
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
-    background-color: black;
-    color: white;
+    color: black;
     justify-content: center;
     align-items: center;
     font-size: 20px;

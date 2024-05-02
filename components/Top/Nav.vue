@@ -10,7 +10,7 @@ const showMenu = () => {
 <template>
     <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
+    <a class="navbar-item">
       <img src="http://localhost:3000/logo.png" height="28">
     </a>
 
@@ -34,27 +34,31 @@ const showMenu = () => {
       </NuxtLink>
 
       <NuxtLink to="/about" class="navbar-item">
-        O nas
+        O mnie
+      </NuxtLink>
+
+      <NuxtLink to="/about" class="navbar-item">
+      	Blog
       </NuxtLink>
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
-          More
+		Więcej
         </a>
 
         <div class="navbar-dropdown">
           <a class="navbar-item">
-            About
+            Projekty
           </a>
           <a class="navbar-item">
-            Jobs
+            Produkty 
           </a>
           <a class="navbar-item">
-            Contact
+            Kontakt 
           </a>
           <hr class="navbar-divider">
           <a class="navbar-item">
-            Report an issue
+		  Zgłoś błąd
           </a>
         </div>
       </div>
@@ -64,10 +68,10 @@ const showMenu = () => {
       <div class="navbar-item">
         <div class="buttons">
           <a class="button is-primary">
-            <strong>Sign up</strong>
+            <strong>Zarejestruj</strong>
           </a>
           <a class="button is-light">
-            Log in
+		  Zaloguj
           </a>
         </div>
       </div>
