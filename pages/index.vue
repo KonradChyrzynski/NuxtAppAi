@@ -5,6 +5,7 @@
 	const searchData = async() => await useFetch('http://127.0.0.1:8000/articles/')
 	.then((res) => { 
 	    articles.value = res.data.value; 
+	    console.log(articles.value);
 	});
 
 	onBeforeMount( async ()=> {
@@ -35,12 +36,14 @@
 </script>
 
 <template>
+	<!--
+	<h1 class="title container">
+		Nie masz jeszcze strony internetowej? To nie problem! Stwórzmy ją razem i zautomatyzujmy Twoje zadania IT, abyś mógł skupić się na rozwijaniu biznesu.
+		Wchodź do cyfrowego świata z nami - szybko, prosto i efektywnie!
+	</h1>
+	-->
 	<div class="main-wrap-container"> 
-		<h1 class="title container">
-			Nie masz jeszcze strony internetowej? To nie problem! Stwórzmy ją razem i zautomatyzujmy Twoje zadania IT, abyś mógł skupić się na rozwijaniu biznesu.
-			Wchodź do cyfrowego świata z nami - szybko, prosto i efektywnie!
-		</h1>
-		<p> Przetestuj nasz model AI, który odgaduję co znajduję się na zdjęciu!</p>
+		<h1 class="title container"> Przetestuj nasz model AI, który odgaduję co znajduję się na zdjęciu, oraz na podstawie predykcji generuje tekst w formie artykułu na bloga!</h1>
 		<button class="button is-primary mt-4 mb-4 ml-4" @click="showArticle">
 			Wyświetl zdjęcia
 		</button>
@@ -52,6 +55,9 @@
 			<div class="ai-response-container-display" v-for="(item, index) in articles" :key="index">
 				<span>Co znajduję się na zdjęciu według naszego modelu AI: {{ item.fields.title }}</span>
 				<img :src="baseURL + item.fields.photo" alt="Lights">
+				<br/>
+				<span> {{item.fields.articleBlogPostContent}}... </span>
+				<br/>
 				<span v-show="showPredictionRef">Prawdopodobieństwo trafionej predykcji: {{ item.fields.content }}</span>
 			</div>
 		</section>
@@ -105,7 +111,7 @@ h3 {
     //Fit image to container;
     img {
 	    width: 400px;
-	    height: 600px;
+	    height: 500px;
 	    object-fit: scale-down;
     }
 }
